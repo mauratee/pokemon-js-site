@@ -54,7 +54,10 @@ const getData = async () => {
         console.log(data["results"][i]["url"])
 
         const pokemon = data.results[i]
-        $('.pokemon').append(`<h3>${pokemon.name}</h3>`);
+        // const el = document.createElement('h3');
+        // el.textContent = pokemon.name;
+        // document.querySelector(".container").append(el);
+        // $('.pokemon').append(`<h3>${pokemon.name}</h3>`);
         
         const pokeURL = pokemon.url
 
@@ -62,34 +65,46 @@ const getData = async () => {
             const response = await fetch(pokeURL)
             const poke = await response.json()
     
+
+            const name = poke.name
+            const el = document.createElement('h3');
+            el.textContent = name;
+            document.querySelector(".container").append(el);
+
             const img = poke.sprites.front_default
             console.log(img)
+            const el1 = document.createElement('div')
+            $('div.container').append(`<img src="${img}" width="200"/>`);
     
             const stats = poke.stats
             console.log(stats)
+            const el2 = document.createElement('div')
+            $('div.container').append(`<h4>Stats</h4>`);
             for (var i = 0; i < stats.length; i++) {
                 let stat = stats[i];
                 // console.log(stat)
                 console.log(stat.stat.name)
                 console.log(stat.base_stat)
-                $('.pokemon-stats').append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);
+                $('div.container').append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);
             }
     
             const types = poke.types
             console.log(types)
+            const el3 = document.createElement('div')
+            $('div.container').append(`<h4>Types</h4>`);
             for (var i = 0; i < types.length; i++) {
                 let type = types[i];
                 console.log(type)
                 console.log(type.type.name)
                 // // console.log(stat.base_stat)
-                $('.pokemon-types').append(`<p>${type.type.name}</p>`);
+                $('div.container').append(`<p>${type.type.name}</p>`);
             }
             
             const weight = poke.weight
             console.log(weight)
-    
-            $('.pokemon').append(`<img src="${img}" width="200"/>`);
-            $('.pokemon').append(`<p>weight: ${poke.weight} lbs.</p>`);
+            const el4 = document.createElement('div')
+            $('div.container').append(`<h4>Weight</h4>`);
+            $('div.container').append(`<p>${poke.weight} lbs.</p>`);
     
         }
 
