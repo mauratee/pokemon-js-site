@@ -2,16 +2,6 @@
 
 const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'; 
 
-// $.get(url, (response) => {
-//     console.log(response);
-//     const pokeList = response;
-//     const firstPokemon = pokeList[0]["name"];
-
-//     for (let i = 0; i < 25; i++) {
-//          console.log(pokeList[i]);
-//          console.log(pokeList[1]["name"]);
-//       }
-//     });
 
 // async function myFetch() {
 //   let response = await fetch(url);
@@ -67,44 +57,55 @@ const getData = async () => {
     
 
             const name = poke.name
-            const el = document.createElement('h3');
-            el.textContent = name;
-            document.querySelector(".container").append(el);
+            const el = document.createElement('div');
+            el.className = `${name}`
+            const pokemonname = document.createElement('h3');
+            pokemonname.textContent = name;
+            document.querySelector('.container').append(el);
+            document.querySelector(`.${name}`).append(pokemonname);
+            // $(`${name}`).append(`<h3>${name}</h3>`);
 
             const img = poke.sprites.front_default
             console.log(img)
             const el1 = document.createElement('div')
-            $('div.container').append(`<img src="${img}" width="200"/>`);
+            el1.className = "more-info"
+            document.querySelector(`.${name}`).append(el1);
+            const pokemonDiv = document.querySelector(`.${name}`);
+            const infoSelector = pokemonDiv.querySelector('.more-info');
+            $(infoSelector).append(`<img src="${img}" width="200"/>`);
     
             const stats = poke.stats
             console.log(stats)
             const el2 = document.createElement('div')
-            $('div.container').append(`<h4>Stats</h4>`);
+            $(infoSelector).append(`<h4>Stats</h4>`);
             for (var i = 0; i < stats.length; i++) {
                 let stat = stats[i];
                 // console.log(stat)
                 console.log(stat.stat.name)
                 console.log(stat.base_stat)
-                $('div.container').append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);
+                $(infoSelector).append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);
             }
     
             const types = poke.types
             console.log(types)
             const el3 = document.createElement('div')
-            $('div.container').append(`<h4>Types</h4>`);
+            $(infoSelector).append(`<h4>Types</h4>`);
             for (var i = 0; i < types.length; i++) {
                 let type = types[i];
                 console.log(type)
                 console.log(type.type.name)
                 // // console.log(stat.base_stat)
-                $('div.container').append(`<p>${type.type.name}</p>`);
+                $(infoSelector).append(`<p>${type.type.name}</p>`);
             }
             
             const weight = poke.weight
             console.log(weight)
             const el4 = document.createElement('div')
-            $('div.container').append(`<h4>Weight</h4>`);
-            $('div.container').append(`<p>${poke.weight} lbs.</p>`);
+            $(infoSelector).append(`<h4>Weight</h4>`);
+            $(infoSelector).append(`<p>${poke.weight} lbs.</p>`);
+
+            // Set display attribute of all divs in container class to none
+            $(infoSelector).hide();
     
         }
 
@@ -114,6 +115,8 @@ const getData = async () => {
 }
 
 getData()
+
+
 
 
 // list first 25 Pokemon
