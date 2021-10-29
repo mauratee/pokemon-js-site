@@ -22,15 +22,7 @@
 //   console.log('There has been a problem with your fetch operation: ' + e.message);
 // });
 
-// const list = document.querySelector('.list');
-// console.log(list)
 
-// const createList = () => {
-//     for (let i = 1; i < 25; ++ i) {
-//         list.innerHTML = `${list.innerHTML} <div><div id="pokemon${i}></div><div class="pokemon-stats"><h4>Stats</h4></div><div class="pokemon-types"><h4>Types</h4></div></div>`;
-//     }
-// }
-// createList()
 
 const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'; 
 
@@ -42,7 +34,7 @@ const getData = async (num) => {
     
     for (let i = 0; i < num; i++) {
         const pokemon = data["results"][i]
-        console.log(pokemon)
+        // console.log(pokemon)
         const pokemonURL = pokemon.url
 
         const getPokemon = async () => {
@@ -51,26 +43,26 @@ const getData = async (num) => {
             // console.log(poke)
             
             const { name } = poke
-            console.log(name)
+            // console.log(name)
 
             const img = poke.sprites.front_default
-            console.log(img)
+            // console.log(img)
 
             const { stats } = poke
-            console.log(stats)
+            // console.log(stats)
 
             const { types } = poke
-            console.log(types)
+            // console.log(types)
 
             const  { weight } = poke
-            console.log(weight)
+            // console.log(weight)
 
             // Create unique name div for each pokemon and add classes
+            // Append name div to container element
+            // Add h3 element to nameDiv for each pokemon
             const nameDiv = document.createElement('div');
             nameDiv.className = `${name} pokemonName`
-            // Append name div to container element
             $('.container').append(nameDiv);
-            // Add h3 element to nameDiv for each pokemon
             $(`.${name}`).append(`<h3>${name}</h3>`);
 
             const moreinfoDiv = document.createElement('div')
@@ -78,10 +70,10 @@ const getData = async (num) => {
             $(`.${name}`).append(moreinfoDiv);
 
             // Create variable for nameDiv for each pokemon
-            const pokemonDiv = document.querySelector(`.${name}`);
             // Create variable for more-info div for each pokemon
-            const infoDiv = pokemonDiv.querySelector('.more-info');
             // Append img to more-info div
+            const pokemonDiv = document.querySelector(`.${name}`);
+            const infoDiv = pokemonDiv.querySelector('.more-info');
             $(infoDiv).append(`<img src="${img}" width="200"/>`);
 
             $(infoDiv).append(`<h4>Stats</h4>`);
@@ -112,29 +104,83 @@ const getData = async (num) => {
                 });
             });
 
-            
+            // const containerDiv = document.querySelector('#container')
+            $(pokemonDiv).hide();
+
 
         }   
         getPokemon()
 
+        
+
         // const containerDiv = document.querySelector('.container');
+        // console.log(containerDiv);
         // const pokemonName = containerDiv.querySelector('.pokemonName');
 
-        // // Set display of violation-list to none as default
-        // $(pokemonName).hide()
+        
+    
     };
+
+    
 }
 
 const pokemonInfo = getData(100)
 // console.log(pokemonInfo)
 
-const containerDiv = document.querySelector('.container');
-const pokemonName = containerDiv.querySelector('.pokemonName');
+// const pokemonDivs = document.querySelector('.container').document.querySelector('.pokemonName');
+// const containerDiv = document.getElementById('container');
+// const pokemonDivs = containerDiv.getElementsByClassName('pokemonName');
+// console.log(pokemonDivs);
 
-// Set display of violation-list to none as default
-$(pokemonName).hide()
+const containerDiv = document.querySelector('#container');
+console.log(containerDiv);
+// const pokemonDivs = containerDiv.querySelectorAll('pokemonName');
+// const pokemonDivs = containerDiv.querySelector('pokemonName');
+// const pokemonDivs = containerDiv.getElementsByClassName('pokemonName');
+// const pokemonDivs = $('.pokemonName');
+const pokemonDivs = document.getElementsByClassName('pokemonName');
+// const pokemonDivs = containerDiv.children;
+// const pokemonDivs = containerDiv.childElementCount;
+console.log(pokemonDivs[0]);
 
-// Shows violations a few at a time
+// window.addEventListener("load", function(event) {
+//     console.log(containerDiv.getElementsByClassName('pokemonName'));
+// });
+
+// var observer = new MutationObserver(function(){
+//     console.log(containerDiv.getElementsByClassName('pokemonName').length);
+//     console.log(containerDiv.getElementsByClassName('pokemonName'));
+//  });
+ 
+//  observer.observe(pokemonDivs, { attributes: false, childList: true, subtree: true });
+ 
+//  // When you've got what you need, you should call this function to trigger a disconnect 
+//  function classesFound(){
+//     observer.disconnect();
+//  };
+
+// Shows a few at a time
+// console.log($(pokemonDivs).slice(0,26));
+// $(pokemonDivs).slice(0,26).show();
+
+// document.getElementsByClassName(".pokemonName").style.display = "none";
+// document.getElementById('main').getElementsByClassName('test')
+
+// const pokemonElements = document.getElementById('container').document.getElementsByClassName('pokemonName');
+// console.log(pokemonElements);
+// const changeDisplay = Array.prototype.filter.call(pokemonElements, function(pokemonElement){
+//     console.log(pokemonElement);
+//   return pokemonElement.style.display = none;
+// });
+
+
+// const containerDiv = document.querySelector('.container');
+// const pokemonName = containerDiv.querySelector('.pokemonName');
+
+// // Set display to none as default
+// $(pokemonName).hide()
+
+// Shows a few at a time
 // pokemonInfo.slice(0,26).show();
 
 // const getPokemonInfo = (array) => {
