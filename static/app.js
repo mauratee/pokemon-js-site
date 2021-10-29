@@ -141,7 +141,7 @@ console.log(containerDiv);
 const pokemonDivs = document.getElementsByClassName('pokemonName');
 // const pokemonDivs = containerDiv.children;
 // const pokemonDivs = containerDiv.childElementCount;
-console.log(pokemonDivs[0]);
+console.log(pokemonDivs);
 
 // window.addEventListener("load", function(event) {
 //     console.log(containerDiv.getElementsByClassName('pokemonName'));
