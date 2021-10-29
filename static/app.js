@@ -1,7 +1,5 @@
 "use strict";
 
-const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'; 
-
 
 // async function myFetch() {
 //   let response = await fetch(url);
@@ -34,89 +32,257 @@ const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200';
 // }
 // createList()
 
-const getData = async () => {
+const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'; 
+
+// Function which uses async request to query API and return JSON object
+const getData = async (num) => {
     const response = await fetch(url)
     const data = await response.json()
+    // console.log(data)
     
-    for (var i = 0; i < 25; i++) {
-        console.log(data["results"][i])
-        console.log(data["results"][i]["name"])
-        console.log(data["results"][i]["url"])
+    for (let i = 0; i < num; i++) {
+        const pokemon = data["results"][i]
+        console.log(pokemon)
+        const pokemonURL = pokemon.url
 
-        const pokemon = data.results[i]
-        // const el = document.createElement('h3');
-        // el.textContent = pokemon.name;
-        // document.querySelector(".container").append(el);
-        // $('.pokemon').append(`<h3>${pokemon.name}</h3>`);
-        
-        const pokeURL = pokemon.url
-
-        const getPoke = async () => {
-            const response = await fetch(pokeURL)
+        const getPokemon = async () => {
+            const response = await fetch(pokemonURL)
             const poke = await response.json()
-    
-
-            const name = poke.name
-            const el = document.createElement('div');
-            el.className = `${name}`
-            const pokemonname = document.createElement('h3');
-            pokemonname.textContent = name;
-            document.querySelector('.container').append(el);
-            document.querySelector(`.${name}`).append(pokemonname);
-            // $(`${name}`).append(`<h3>${name}</h3>`);
+            // console.log(poke)
+            
+            const { name } = poke
+            console.log(name)
 
             const img = poke.sprites.front_default
             console.log(img)
-            const el1 = document.createElement('div')
-            el1.className = "more-info"
-            document.querySelector(`.${name}`).append(el1);
-            const pokemonDiv = document.querySelector(`.${name}`);
-            const infoSelector = pokemonDiv.querySelector('.more-info');
-            $(infoSelector).append(`<img src="${img}" width="200"/>`);
-    
-            const stats = poke.stats
+
+            const { stats } = poke
             console.log(stats)
-            const el2 = document.createElement('div')
-            $(infoSelector).append(`<h4>Stats</h4>`);
-            for (var i = 0; i < stats.length; i++) {
+
+            const { types } = poke
+            console.log(types)
+
+            const  { weight } = poke
+            console.log(weight)
+
+            // Create unique name div for each pokemon and add classes
+            const nameDiv = document.createElement('div');
+            nameDiv.className = `${name} pokemonName`
+            // Append name div to container element
+            $('.container').append(nameDiv);
+            // Add h3 element to nameDiv for each pokemon
+            $(`.${name}`).append(`<h3>${name}</h3>`);
+
+            const moreinfoDiv = document.createElement('div')
+            moreinfoDiv.className = "more-info"
+            $(`.${name}`).append(moreinfoDiv);
+
+            // Create variable for nameDiv for each pokemon
+            const pokemonDiv = document.querySelector(`.${name}`);
+            // Create variable for more-info div for each pokemon
+            const infoDiv = pokemonDiv.querySelector('.more-info');
+            // Append img to more-info div
+            $(infoDiv).append(`<img src="${img}" width="200"/>`);
+
+            $(infoDiv).append(`<h4>Stats</h4>`);
+            for (let i = 0; i < stats.length; i++) {
                 let stat = stats[i];
                 // console.log(stat)
-                console.log(stat.stat.name)
-                console.log(stat.base_stat)
-                $(infoSelector).append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);
-            }
-    
-            const types = poke.types
-            console.log(types)
-            const el3 = document.createElement('div')
-            $(infoSelector).append(`<h4>Types</h4>`);
-            for (var i = 0; i < types.length; i++) {
+                // console.log(stat.stat.name)
+                // console.log(stat.base_stat)
+                $(infoDiv).append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);}
+
+            $(infoDiv).append(`<h4>Types</h4>`);
+            for (let i = 0; i < types.length; i++) {
                 let type = types[i];
-                console.log(type)
-                console.log(type.type.name)
-                // // console.log(stat.base_stat)
-                $(infoSelector).append(`<p>${type.type.name}</p>`);
-            }
+                // console.log(type)
+                // console.log(type.type.name)
+                $(infoDiv).append(`<p>${type.type.name}</p>`);}
+
+            $(infoDiv).append(`<h4>Weight</h4>`);
+            $(infoDiv).append(`<p>${poke.weight} lbs.</p>`);
+
+            // Set display attribute of all more-info divs to none
+            $(infoDiv).hide();
+
+            // Slide toggle to show more-info div on click of div for selected Pokemon
+            $(document).ready(function(){
+                $(pokemonDiv).on("click", function(){
+                    $(infoDiv).slideToggle();
+                });
+            });
+
             
-            const weight = poke.weight
-            console.log(weight)
-            const el4 = document.createElement('div')
-            $(infoSelector).append(`<h4>Weight</h4>`);
-            $(infoSelector).append(`<p>${poke.weight} lbs.</p>`);
 
-            // Set display attribute of all divs in container class to none
-            $(infoSelector).hide();
-    
-        }
+        }   
+        getPokemon()
 
-        getPoke()
+        // const containerDiv = document.querySelector('.container');
+        // const pokemonName = containerDiv.querySelector('.pokemonName');
 
-    }
+        // // Set display of violation-list to none as default
+        // $(pokemonName).hide()
+    };
 }
 
-getData()
+const pokemonInfo = getData(100)
+// console.log(pokemonInfo)
 
+const containerDiv = document.querySelector('.container');
+const pokemonName = containerDiv.querySelector('.pokemonName');
 
+// Set display of violation-list to none as default
+$(pokemonName).hide()
 
+// Shows violations a few at a time
+// pokemonInfo.slice(0,26).show();
 
-// list first 25 Pokemon
+// const getPokemonInfo = (array) => {
+
+//     for (let i = 0; i < array.length; i++) {
+//         const name = array[i]["name"]
+//         console.log(name)
+//     }
+// };
+
+// getPokemonInfo()
+
+// const getPokemon = async (urls) => {
+
+//     const pokemonArray = []
+
+//     for(let i = 0; i < urls.length; i++) {
+//         const pokeURL = urls[i];
+//         console.log(pokeURL)
+//         const response = await fetch(pokeURL)
+//         const pokemon = await response.json()
+//         console.log(pokemon)
+//         pokemonArray.push(pokemon)
+//         }
+//     return pokemonArray
+// };
+
+// const pokemon = getPokemon(data)
+// console.log(pokemon)
+
+// const getData = async () => {
+//     const response = await fetch(url)
+//     const data = await response.json()
+    
+//     for (var i = 0; i < 25; i++) {
+//         console.log(data["results"][i])
+//         console.log(data["results"][i]["name"])
+//         console.log(data["results"][i]["url"])
+
+//         const pokemon = data.results[i]
+//         // const el = document.createElement('h3');
+//         // el.textContent = pokemon.name;
+//         // document.querySelector(".container").append(el);
+//         // $('.pokemon').append(`<h3>${pokemon.name}</h3>`);
+        
+//         const pokeURL = pokemon.url
+
+//         const getPoke = async () => {
+//             const response = await fetch(pokeURL)
+//             const poke = await response.json()
+    
+
+//             const name = poke.name
+//             const el = document.createElement('div');
+//             el.className = `${name} pokemonName`
+//             // const pokemonname = document.createElement('h3');
+//             // pokemonname.textContent = name;
+//             document.querySelector('.container').append(el);
+//             // document.querySelector(`.${name}`).append(pokemonname);
+//             $(`.${name}`).append(`<h3>${name}<span></span></h3>`);
+
+//             const img = poke.sprites.front_default
+//             console.log(img)
+//             const el1 = document.createElement('div')
+//             el1.className = "more-info"
+//             document.querySelector(`.${name}`).append(el1);
+//             const pokemonDiv = document.querySelector(`.${name}`);
+//             const infoSelector = pokemonDiv.querySelector('.more-info');
+//             $(infoSelector).append(`<img src="${img}" width="200"/>`);
+    
+//             const stats = poke.stats
+//             console.log(stats)
+//             const el2 = document.createElement('div')
+//             $(infoSelector).append(`<h4>Stats</h4>`);
+//             for (var i = 0; i < stats.length; i++) {
+//                 let stat = stats[i];
+//                 // console.log(stat)
+//                 console.log(stat.stat.name)
+//                 console.log(stat.base_stat)
+//                 $(infoSelector).append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);
+//             }
+    
+//             const types = poke.types
+//             console.log(types)
+//             const el3 = document.createElement('div')
+//             $(infoSelector).append(`<h4>Types</h4>`);
+//             for (var i = 0; i < types.length; i++) {
+//                 let type = types[i];
+//                 console.log(type)
+//                 console.log(type.type.name)
+//                 // // console.log(stat.base_stat)
+//                 $(infoSelector).append(`<p>${type.type.name}</p>`);
+//             }
+            
+//             const weight = poke.weight
+//             console.log(weight)
+//             const el4 = document.createElement('div')
+//             $(infoSelector).append(`<h4>Weight</h4>`);
+//             $(infoSelector).append(`<p>${poke.weight} lbs.</p>`);
+
+//             // Set display attribute of all divs in container class to none
+//             $(infoSelector).hide();
+
+//             // Slide toggle to show more-info div on click of div for selected Pokemon
+//             $(document).ready(function(){
+//                 $(pokemonDiv).on("click", function(){
+//                     $(infoSelector).slideToggle();
+//                 });
+//             });
+
+//             // let test = document.getElementsByClassName(pokemonDiv);
+
+//             // // This handler will be executed every time the cursor
+//             // // is moved over a different list item
+//             // test.addEventListener("mouseover", function( event ) {
+//             //     // highlight the mouseover target
+//             //     event.target.style.color = "orange";
+  
+//             //     // reset the color after a short delay
+//             //     setTimeout(function() {
+//             //         event.target.style.color = "";
+//             //     }, 500);
+//             // }, false);
+
+//             // Add highlight to NYC Housing Code Violations text on mouseover
+//             $(document).ready(function(){
+//                 $(pokemonDiv).on({
+//                     mouseenter: function(){
+//                         $(this).css("background-color", "lightgray");
+//                     },
+//                     mouseleave: function(){
+//                         $(this).css("background-color", "lightblue");
+//                     } 
+//                     // .mouseenter(function() {
+//                     //     $(this).css("background-color", "yellow");
+//                     //     // $(this).find("span").effect("highlight", {color:"#FFFF00"}, 1000);
+//                     // });
+//                     // .mouseleave(function() {
+//                     //     $(this).find("span").removeClass("highlight");
+//                     });
+//             });
+    
+//         }
+
+//         getPoke()
+
+//     }
+// }
+
+// getData()
+
