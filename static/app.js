@@ -7,35 +7,21 @@ const url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200';
 const getData = async (num) => {
     const response = await fetch(url)
     const data = await response.json()
-    // console.log(data)
 
-    const pokemonDivs = []
     
     for (let i = 0; i < num; i++) {
         const pokemon = data["results"][i]
-        // console.log(pokemon)
         const pokemonURL = pokemon.url
 
         const getPokemon = async () => {
             const response = await fetch(pokemonURL)
             const poke = await response.json()
-            // console.log(poke)
 
-            
             const { name } = poke
-            // console.log(name)
-
             const img = poke.sprites.front_default
-            // console.log(img)
-
             const { stats } = poke
-            // console.log(stats)
-
             const { types } = poke
-            // console.log(types)
-
             const  { weight } = poke
-            // console.log(weight)
 
             // Create unique name div for each pokemon and add classes
             // Append name div to container element
@@ -59,16 +45,11 @@ const getData = async (num) => {
             $(infoDiv).append(`<h4>Stats</h4>`);
             for (let i = 0; i < stats.length; i++) {
                 let stat = stats[i];
-                // console.log(stat)
-                // console.log(stat.stat.name)
-                // console.log(stat.base_stat)
                 $(infoDiv).append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);}
 
             $(infoDiv).append(`<h4>Types</h4>`);
             for (let i = 0; i < types.length; i++) {
                 let type = types[i];
-                // console.log(type)
-                // console.log(type.type.name)
                 $(infoDiv).append(`<p>${type.type.name}</p>`);}
 
             $(infoDiv).append(`<h4>Weight</h4>`);
@@ -83,47 +64,14 @@ const getData = async (num) => {
                     $(infoDiv).slideToggle();
                 });
             });
-
-            // const containerDiv = document.querySelector('#container')
-            // if (i >= 25) {
-            // $(pokemonDiv).hide()
-            // };
-
     
         };
 
+        getPokemon()
 
-        (async () => {
-            console.log(await getPokemon())
-         })()
-    
     };
 
-    console.log(pokemonDivs)
-    // return pokemonDivs
-    
-    pokemonDivs.forEach((div) =>{
-        console.log(div);
-    });
-    // getData().then(x => { 
-    //     console.log(x); 
-    // });
-    // console.log(pokemonDivs);
-    $(pokemonDivs).slice(0,26).show();
-
-    
 };
-
-// async function callAsync() {
-//     var x = await getData();
-//     console.log(x);
-//  }
-//  callAsync();
-
-
-
-// localStorage.setItem('records', records);
-// alert( localStorage.getItem('records') );
 
 const pokemonInfo = getData(25)
 
