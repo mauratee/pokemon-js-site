@@ -31,16 +31,18 @@ const getData = async (num) => {
             $('.container').append(nameDiv);
             $(`.${name}`).append(`<h3>${name}</h3>`);
 
+            // Append img to more-info div
+            $(`.${name}`    ).append(`<img src="${img}" width="200"/>`);
+
             const moreinfoDiv = document.createElement('div')
             moreinfoDiv.className = "more-info"
             $(`.${name}`).append(moreinfoDiv);
 
             // Create variable for nameDiv for each pokemon
             // Create variable for more-info div for each pokemon
-            // Append img to more-info div
             const pokemonDiv = document.querySelector(`.${name}`);
             const infoDiv = pokemonDiv.querySelector('.more-info');
-            $(infoDiv).append(`<img src="${img}" width="200"/>`);
+            
 
             $(infoDiv).append(`<h4>Stats</h4>`);
             for (let i = 0; i < stats.length; i++) {
