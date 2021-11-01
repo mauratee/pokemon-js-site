@@ -16,4 +16,4 @@ Let's look at some Pokemon! This project queries the free, restful [PokeAPI](htt
 
 # To Run Tests
 
-Instead of starting the server (step #6, above) run the command `python3 tests.py`.
+Instead of starting the server (step #6, above) run the command `python3 server.py jstest`.
