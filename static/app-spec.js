@@ -39,6 +39,11 @@ describe('My Test Suite', () => {
 });
 
 
+//  I ran out of time for more testing but I would have kept working on
+// the test below to test the data in the nested function "getPokemon"
+// and also would have added testing to the "more-pokemon" and
+// "fewer-pokemon" buttons in index.html
+
 // describe('My Test Suite', () => {
 //   it('data contains pokemon', () => {
 //     (async () => {
