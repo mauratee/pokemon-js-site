@@ -13,3 +13,7 @@ Let's look at some Pokemon! This project queries the free, restful [PokeAPI](htt
 6. Start the server for the project by running the command `python3 server.py`.
 7. In your browser, navigate to the address listed in the terminal, likely [http://localhost:5000/](http://localhost:5000/).
 8. View some Pokemon in the site and click to view additional information on each Pokemon!✨
+
+# To Run Tests
+
+Instead of starting the server (step #6, above) run the command `python3 tests.py`.
