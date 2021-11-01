@@ -1,6 +1,6 @@
 # About
 
-Let's look at some Pokemon! This project queries the free, Restful [PokeAPI](https://pokeapi.co/) to display information about up to 100 Pokemon at a time. This project uses a simple Flask server written in Python 3.8.10 and JavaScript, jQuery, HTML and CSS to query and display information to the user.
+Let's look at some Pokemon! This project queries the free, restful [PokeAPI](https://pokeapi.co/) to display information about up to 100 Pokemon at a time. This project also uses a simple Flask server written in Python 3.8.10 and JavaScript, jQuery, HTML and CSS to query and display information to the user.
 
 
 # How to Access the Project

@@ -44,17 +44,17 @@ const getData = async (num) => {
             const infoDiv = pokemonDiv.querySelector('.more-info');
             
 
-            $(infoDiv).append(`<h4>Stats</h4>`);
+            $(infoDiv).append(`<h5>Stats</h5>`);
             for (let i = 0; i < stats.length; i++) {
                 let stat = stats[i];
                 $(infoDiv).append(`<p>${stat.stat.name}: ${stat.base_stat}</p>`);}
 
-            $(infoDiv).append(`<h4>Types</h4>`);
+            $(infoDiv).append(`<h5>Types</h5>`);
             for (let i = 0; i < types.length; i++) {
                 let type = types[i];
                 $(infoDiv).append(`<p>${type.type.name}</p>`);}
 
-            $(infoDiv).append(`<h4>Weight</h4>`);
+            $(infoDiv).append(`<h5>Weight</h5>`);
             $(infoDiv).append(`<p>${poke.weight} lbs.</p>`);
 
             // Set display attribute of all more-info divs to none
@@ -72,7 +72,7 @@ const getData = async (num) => {
         getPokemon()
 
     };
-
+    return data
 };
 
 const pokemonInfo = getData(25)
@@ -104,4 +104,3 @@ $('#fewer-pokemon').on('click', () => {
     records = records - 25
     document.getElementById('value-tracker').value = records
     });
-
