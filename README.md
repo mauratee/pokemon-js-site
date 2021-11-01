@@ -16,4 +16,4 @@ Let's look at some Pokemon! This project queries the free, restful [PokeAPI](htt
 
 # To Run Tests
 
-Instead of starting the server (step #6, above) run the command `python3 server.py jstest`.
+Instead of starting the server (step #6, above) run the command `python3 server.py jstest`, navigate to the address listed in the terminal, likely [http://localhost:5000/](http://localhost:5000/) and scroll to the bottom of the page to view the Jasmine tests.
