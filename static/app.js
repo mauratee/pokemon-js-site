@@ -1,10 +1,10 @@
 "use strict";
 
-const url = "https://pokeapi.co/api/v2/pokemon?limit=100&offset=200";
 
 // Function which uses async request to query API and rparse data
 // takes in number of records to request as a parameter
 const getData = async (num) => {
+  const url = "https://pokeapi.co/api/v2/pokemon?limit=100&offset=200";
   const response = await fetch(url);
   const data = await response.json();
 
@@ -79,6 +79,7 @@ const getData = async (num) => {
     // Call getPokemon function
     getPokemon();
   }
+  return data
 };
 
 // Initial call to API displays 25 records
